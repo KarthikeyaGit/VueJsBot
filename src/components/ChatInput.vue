@@ -1,28 +1,23 @@
 <template>
   <div class="chatInput">
     <div class="flexible">
-      <!-- <form> -->
-        <div class="inputField">
+      <div class="inputField">
         <input
+          v-model="message"
           type="text"
-          id="lname"
+          name="message"
           class="textFied"
-          name="lastname"
           placeholder="Type a message"
         />
       </div>
-       <div class="sendbtn">
-        <button v-on:click="redirect_to_login" style="outline: none">
+      <div class="sendbtn">
+        <button v-on:keyup.enter="submit" @click="submit" style="outline: none">
           <img
             src="../assets/send-icon.png"
-            style="width:37px; height:37px;"
+            style="width: 37px; height: 37px"
           />
         </button>
       </div>
-      <!-- </form> -->
-
-
-
     </div>
   </div>
 </template>
@@ -31,6 +26,18 @@ import "../../node_modules/vuetify/dist/vuetify.css";
 
 export default {
   name: "chatInput",
+  data() {
+    return {
+    message:'',
+    }
+  },
+  methods: {
+    submit: function () {
+      console.log("message",this.message)
+      this.$emit('submit',this.message)
+      this.message = ''
+    },
+  },
 };
 </script>
 

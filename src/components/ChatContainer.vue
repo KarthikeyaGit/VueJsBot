@@ -1,20 +1,43 @@
 <template>
   <div class="cont">
     <div>
-      <ul>
-        <li class="him">Hi</li>
-        <li class="me">Hello ,How are you?</li>
-        <li class="him">I am fine ,how about you?</li>
+      <ul id="chatconatiner">
+        <li class="me" v-for="msg in msgs" v-bind:key="msg.message">
+          {{ msg.message }}
+        </li>
       </ul>
     </div>
-    <div><Input></Input></div>
+    <div><Input @submit="getMessage" :inputmsg="message"></Input></div>
   </div>
 </template>
 
-<style>
-/* .chatArea{
 
-} */
+<script>
+import Input from "./ChatInput.vue";
+
+export default {
+  name: "chatconatiner",
+  data() {
+    return {
+      message:"",
+      inputmsg: "",
+      msgs: [],
+    };
+  },
+  components: {
+    Input,
+  },
+  methods: {
+    getMessage: function (inputmsg) {
+      let message = {message : inputmsg}
+      this.msgs.push(message)
+      console.log("msg",inputmsg)
+    }
+  }
+};
+</script>
+
+<style>
 .cont {
   position: relative;
   max-width: 500px;
@@ -66,13 +89,3 @@ ul li {
 }
 </style>
 
-<script>
-import Input from "./ChatInput.vue";
-
-export default {
-  name: "chatconatiner",
-  components: {
-    Input,
-  },
-};
-</script>
