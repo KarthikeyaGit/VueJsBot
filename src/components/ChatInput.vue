@@ -53,6 +53,8 @@ export default {
   bottom: 0;
   left: 0;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  background-color:white;
+  z-index:200;
 }
 .inputField {
   padding: 8px;

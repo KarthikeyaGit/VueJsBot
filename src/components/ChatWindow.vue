@@ -1,6 +1,6 @@
 <template>
   <div id="ChatWindow" class="container">
-    <section><TopHead></TopHead></section>
+    <div><TopHead></TopHead></div>
     <section><ChatContainer></ChatContainer></section>
   </div>
 </template>
