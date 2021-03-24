@@ -1,15 +1,15 @@
 <template>
   <div id="ChatWindow" class="container">
-    <div><TopHead></TopHead></div>
-    <section><ChatContainer></ChatContainer></section>
+    <div ><TopHead></TopHead></div>
+    <div><ChatContainer></ChatContainer></div>
   </div>
 </template>
 
-<style >
+<style>
+
+
 .container {
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
+padding: 0;
 }
 </style>
 

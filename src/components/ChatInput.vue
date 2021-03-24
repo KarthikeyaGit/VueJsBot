@@ -8,10 +8,11 @@
           name="message"
           class="textFied"
           placeholder="Type a message"
+          @keyup.enter="submit"
         />
       </div>
       <div class="sendbtn">
-        <button v-on:keyup.enter="submit" @click="submit" style="outline: none">
+        <button @click="submit" style="outline: none">
           <img
             src="../assets/send-icon.png"
             style="width: 37px; height: 37px"
@@ -28,15 +29,16 @@ export default {
   name: "chatInput",
   data() {
     return {
-    message:'',
-    }
+      message: "",
+    };
   },
   methods: {
     submit: function () {
-      console.log("message",this.message)
-      this.$emit('submit',this.message)
-      this.message = ''
+      console.log("message", this.message);
+      this.$emit("submit", this.message);
+      this.message = "";
     },
+    
   },
 };
 </script>
@@ -53,8 +55,8 @@ export default {
   bottom: 0;
   left: 0;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
-  background-color:white;
-  z-index:200;
+  background-color: white;
+  z-index: 200;
 }
 .inputField {
   padding: 8px;

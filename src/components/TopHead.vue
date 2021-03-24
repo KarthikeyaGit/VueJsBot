@@ -4,12 +4,13 @@
   </header>
 </template>
 
-<style scoped>
+<style >
 
 .head {
-  position: fixed;
+  position: relative;
   background-color: #000000;
   width: 100%;
+  padding:0;
   height: 50px;
   z-index: 999;
 

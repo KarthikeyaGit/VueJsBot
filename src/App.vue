@@ -8,9 +8,10 @@
 
 <style>
 
+
 .main {
-   display: flex;
-  justify-content: center;
+ margin:0;
+ padding:0;
 }
 </style>
 
