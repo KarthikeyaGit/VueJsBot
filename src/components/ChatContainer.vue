@@ -4,14 +4,7 @@
       <ul id="chatconatiner" style="max-height=450px; overflow-y=auto;">
         <li
           v-for="(msg, index) in msgs"
-          :class="`me ${index}`"
-          v-bind:key="msg.message"
-        >
-          {{ msg.message }}
-        </li>
-        <li
-          v-for="(msg, index) in msgs"
-          :class="`him ${index}`"
+          :class="`${msg.from} ${index}`"
           v-bind:key="msg.message"
         >
           {{ msg.message }}
@@ -43,7 +36,7 @@ ul li {
   clear: both;
   padding: 12px;
   margin: 12px;
-  border-radius: 30px;
+  border-radius: 6px;
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -51,28 +44,16 @@ ul li {
 }
 
 .him {
-  float:left;
+  float: left;
   background: rgb(190, 186, 186);
+  border-top-left-radius: 0px;
 }
 
 .me {
   float: right;
   background: #1f2020;
   color: #fff;
-}
-
-.him + .me {
-  border-bottom-right-radius: 5px;
-}
-
-.me + .me {
-  border-top-right-radius: 5px;
-  /* border-bottom-right-radius: 5px; */
-}
-
-.me:last-of-type {
-  border-bottom-right-radius: 30px;
-  margin-bottom: 250px;
+  border-top-right-radius: 0px;
 }
 </style>
 
@@ -80,13 +61,14 @@ ul li {
 
 <script>
 import Input from "./ChatInput.vue";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "app",
   data() {
     return {
       message: "",
-      inputmsg: "",
+      inputmsg: {},
       msgs: [],
     };
   },
@@ -95,15 +77,16 @@ export default {
   },
 
   methods: {
-    setMessage: function (inputmsg) {
-      let message = { message: inputmsg };
+    setMessage: async function (inputmsg) {
+      let message = { message: inputmsg, from: "me" };
       this.msgs.push(message);
+      // this.send(inputmsg);
+
       this.scrollToEnd();
     },
 
     scrollToEnd: async function () {
-      var container = document.getElementById("chatconatiner");
-      let index = document.querySelectorAll("me");
+
 
       let i = this.msgs.length;
       let className = `me ${i - 1}`;
@@ -111,6 +94,28 @@ export default {
       element[0].scrollIntoView({ behavior: "smooth" });
 
       console.log("el ", className, element[0], i);
+    },
+
+    send(message) {
+      let session_id = uuidv4();
+      let gateway = "http://localhost:3000/web";
+      let request = {
+        phone_number: "1234567890",
+        session_id: session_id,
+        query: message,
+      };
+
+      fetch(gateway + "?format=true", {
+        method: "POST",
+        body: JSON.stringify(request),
+        headers: { "content-type": "application/json" },
+      }).then(async (response) => {
+        let msg = await response.json();
+        let res = msg.fulfillmentText;
+        let message = { message: res, from: "him" };
+        this.msgs.push(message);
+        this.scrollToEnd();
+      });
     },
   },
 };

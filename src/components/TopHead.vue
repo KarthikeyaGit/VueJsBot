@@ -7,7 +7,7 @@
 <style >
 
 .head {
-  position: relative;
+  position: fixed;
   background-color: #000000;
   width: 100%;
   padding:0;
