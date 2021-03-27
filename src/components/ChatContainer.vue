@@ -5,13 +5,12 @@
         <li
           v-for="(msg, index) in msgs"
           :class="`${msg.from} ${index}`"
-          v-bind:key="msg.message"
+          v-bind:key="'msg'+index"
         >
           {{ msg.message }}
         </li>
       </ul>
     </div>
-
     <div><Input @submit="setMessage" :inputmsg="message"></Input></div>
   </div>
 </template>
@@ -23,18 +22,19 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 50px;
 }
 
 ul {
   list-style: none;
   margin: auto;
-  padding: auto;
+  /* padding-bottom: 200px; */
 }
 
 ul li {
   display: inline-block;
   clear: both;
-  padding: 12px;
+  padding: 15px;
   margin: 12px;
   border-radius: 6px;
   margin-bottom: 2px;
@@ -54,6 +54,16 @@ ul li {
   background: #1f2020;
   color: #fff;
   border-top-right-radius: 0px;
+}
+.me:last-of-type {
+  margin-bottom: 250px;
+}
+ .him:last-of-type {
+  margin-bottom: 250px;
+}
+
+.container-bottom {
+  padding-top: 250px;
 }
 </style>
 
@@ -77,23 +87,19 @@ export default {
   },
 
   methods: {
-    setMessage: async function (inputmsg) {
+    setMessage: function (inputmsg) {
       let message = { message: inputmsg, from: "me" };
       this.msgs.push(message);
-      // this.send(inputmsg);
-
+      this.send(inputmsg);
       this.scrollToEnd();
     },
 
     scrollToEnd: async function () {
-
-
       let i = this.msgs.length;
       let className = `me ${i - 1}`;
       let element = await this.$el.getElementsByClassName(className);
       element[0].scrollIntoView({ behavior: "smooth" });
-
-      console.log("el ", className, element[0], i);
+      console.log("in me ", className, element[0], i);
     },
 
     send(message) {
@@ -114,7 +120,11 @@ export default {
         let res = msg.fulfillmentText;
         let message = { message: res, from: "him" };
         this.msgs.push(message);
-        this.scrollToEnd();
+        let i = this.msgs.length;
+        let className = `him ${i - 1}`;
+        let element = await this.$el.getElementsByClassName(className);
+        await element[0].scrollIntoView({ behavior: "smooth" });
+        console.log("in him", className, element[0], i);
       });
     },
   },

@@ -1,15 +1,13 @@
 <template>
   <div id="ChatWindow" class="container">
-    <div ><TopHead></TopHead></div>
+    <div><TopHead></TopHead></div>
     <div><ChatContainer></ChatContainer></div>
   </div>
 </template>
 
 <style>
-
-
 .container {
-padding: 0;
+  padding: 0;
 }
 </style>
 
@@ -20,14 +18,13 @@ export default {
   name: "ChatWindow",
   data() {
     return {
-      counter: 0,
+      message: "",
     };
   },
   components: {
     TopHead,
-    ChatContainer,
+    ChatContainer
   },
-
   methods: {
     countincrement: function () {
       this.counter += 1;

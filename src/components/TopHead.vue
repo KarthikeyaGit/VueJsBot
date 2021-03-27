@@ -1,18 +1,19 @@
 <template>
-  <header id="tophead" class="head">
+  <div id="tophead" class="head">
     <p class="title" style="text-align: left">ChatBot</p>
-  </header>
+  </div>
 </template>
 
-<style >
+<style scoped>
 
 .head {
   position: fixed;
   background-color: #000000;
   width: 100%;
-  padding:0;
   height: 50px;
   z-index: 999;
+  left: 0;
+
 
 }
 .title {

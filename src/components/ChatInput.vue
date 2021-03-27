@@ -38,7 +38,7 @@ export default {
       this.$emit("submit", this.message);
       this.message = "";
     },
-    
+
   },
 };
 </script>
