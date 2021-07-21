@@ -63,6 +63,6 @@ app.post('/web', exports.web)
 
 app.post('/', exports.dialogflowFirebaseFulfillment)
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on port 3000`);
 });
